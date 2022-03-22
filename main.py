@@ -12,7 +12,7 @@ file=input("Enter Filepath: ")
 
 
 
-grp="" #Enter Your group name here
+grp="TEST" #Enter Your group name here
 
 mimdb=input("Enter IMDB LINK: ")
 newid=(mimdb.replace("https://www.imdb.com/title/","").replace("/"," ")).split()
@@ -24,8 +24,8 @@ for ids in newid:
     
 new=ia.get_movie(imbdbid)
 mname=new['title'].replace("'","").replace(",","").replace(" ",".")
-myear="."+str(new['year'])
-finname=mname+myear
+myear=str(new['year'])
+finname=mname+"."+myear
 
 
 
@@ -112,11 +112,11 @@ else:
 
 audio_ = audio_codec + audio_channels + srrnd
 
-
+finname2=mname+" "+myear
 output_name = '{}.{}.{}.{}.{}-{}'.format(finname,vid_res, vid_type,video_codec, audio_,grp)
 
 
-tagname=('{} {} {} {} {}-{}'.format(finname,vid_res, vid_type,video_codec, audio_,grp)).replace(".Atmos"," Atmos").replace(".WEB-DL"," WEB-DL")
+tagname=('{} {} {} {} {}-{}'.format(finname2,vid_res, vid_type,video_codec, audio_,grp)).replace(".Atmos"," Atmos").replace(".WEB-DL"," WEB-DL")
 os.system(f'{mkvpropedit} "{file}" --edit info --set "title={tagname}"')
 print("File Tagged:",tagname)
 os.rename(file,os.path.dirname(file)+output_name+".mkv")
